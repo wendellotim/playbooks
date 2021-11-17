@@ -10,13 +10,11 @@
       - mysql-server
       - mysql-common
       - mysql-client
-      - php-mysql
+      - php7.4-mysql
       - libapache2-mod-php
     services:
       - apache2
       - mysql
-      - php
-
   tasks:
     - name: Install our packages
       apt:
@@ -35,3 +33,4 @@
 
     - name: Enable Apache2 Default HTTPS site
       shell: a2ensite default-ssl
+
