@@ -4,6 +4,10 @@
   connection: local
   become: yes
 
+app_download_dest: /tmp/webapp
+app_dest: /var/www/webapp
+app_repo: https://github.com/whelmed/ansible_demo.git
+
   vars:
     packages:
       - apache2
@@ -12,6 +16,7 @@
       - mysql-client
       - php7.4-mysql
       - libapache2-mod-php
+      - python-mysqldb
     services:
       - apache2
       - mysql
@@ -34,3 +39,12 @@
     - name: Enable Apache2 Default HTTPS site
       shell: a2ensite default-ssl
 
+- name: Copy the code from repository
+  git:
+    repo: https://github.com/crane-cloud/cms-backend.git
+    dest: /var/www/html/
+
+- name: Creates the index.php file
+  template:
+    src: cms-backend/index.php
+    dest: /var/www/html/index.php
